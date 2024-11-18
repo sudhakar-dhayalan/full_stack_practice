@@ -1,11 +1,13 @@
+const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+// app.use(express.json());
+app.use(bodyParser.json());
 
 app.get('/api/data', (req, res) => {
-  res.send({
+  res.json({
     'message': 'success'
   });
 })
