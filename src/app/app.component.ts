@@ -12,12 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class AppComponent implements OnInit {
   title = 'full_stack_practice';
+  message = ''
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.apiService.getData().subscribe((data) => {
       console.log(data);
+      this.message = data ? data['message']: ''
     });
   }
 }
