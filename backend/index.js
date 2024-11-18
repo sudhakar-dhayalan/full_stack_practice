@@ -4,8 +4,10 @@ const port = 3000;
 
 app.use(express.json());
 
-app.use('/', (req, res) => {
-  res.send('Server is Up')
+app.get('/api/data', (req, res) => {
+  res.send({
+    'message': 'success'
+  });
 })
 
 app.listen(port, () => {
