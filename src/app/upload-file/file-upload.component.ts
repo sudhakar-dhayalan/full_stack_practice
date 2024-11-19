@@ -1,22 +1,26 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ApiService } from '../api-service';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgIf,
-  ],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent {
   fileUploadForm: FormGroup;
   fileSizeError = false;
+  responseMessage = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.fileUploadForm = this.fb.group({
       file: [null, Validators.required],
     });
@@ -42,6 +46,17 @@ export class FileUploadComponent {
       const file = this.fileUploadForm.get('file')?.value;
       console.log('File ready for upload:', file);
       // Perform file upload logic here
+
+      if (file) {
+        this.apiService.uploadFile(file).subscribe({
+          next: (res: any) => {
+            this.responseMessage = res.message;
+          },
+          error: (err) => {
+            this.responseMessage = 'File upload failed!';
+          },
+        });
+      }
     }
   }
 }
