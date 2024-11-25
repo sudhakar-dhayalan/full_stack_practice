@@ -1,5 +1,18 @@
-<h1>Angular App is Up and Running!!!</h1>
+<div class="container-fluid">
+  <!-- Header Section -->
+  <app-header></app-header>
 
-<h3>Api response is {{message}}</h3>
+  <!-- Main Content Section -->
+  <main class="row">
+    <div class="col-12 col-md-8 offset-md-2 py-4">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
 
-<app-file-upload></app-file-upload>
+  <!-- Footer Section -->
+  <footer class="row bg-dark text-white py-3 mt-auto">
+    <div class="col text-center">
+      <p>&copy; 2024 My Responsive App</p>
+    </div>
+  </footer>
+</div>
