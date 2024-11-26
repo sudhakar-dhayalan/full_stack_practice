@@ -1,0 +1,33 @@
+.container {
+  margin: 1rem;
+}
+
+/* General layout adjustments */
+html,
+body {
+  height: 100%;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  background-color: #343a40;
+  color: #ffffff;
+  margin-top: auto; /* Pushes footer to the bottom when content is less */
+}
+
+footer {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+}
