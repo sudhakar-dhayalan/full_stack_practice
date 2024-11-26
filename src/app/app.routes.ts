@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { FileUploadComponent } from './upload-file/file-upload.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 export const routes: Routes = [
   {
@@ -10,6 +11,10 @@ export const routes: Routes = [
   {
     path: 'upload',
     component: FileUploadComponent,
+  },
+  {
+    path: 'user-management',
+    component: UserManagementComponent,
   },
   {
     path: 'auth',
