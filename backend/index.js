@@ -7,12 +7,15 @@ const path = require("path");
 const fs = require("fs");
 const port = 3000;
 
+const uploadsRoute = require('./routes/uploads');
+
 // Middleware
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true}));
 app.use(cors());
 
 // Ensure "uploads" directory exists
-const uploadDir = path.join(__dirname, "uploads");
+const uploadDir = path.join(__dirname, "/files");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
@@ -40,12 +43,15 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
   res.status(200).json({
     message: "File uploaded successfully!",
-    filePath: `/uploads/${req.file.filename}`,
+    filePath: `/files/${req.file.filename}`,
   });
 });
 
+// Todo
+// app.use('/upload', uploadsRoute);
+
 // Serve uploaded files
-app.use("/uploads", express.static(uploadDir));
+app.use("/files", express.static(uploadDir));
 
 // Sample API
 app.get("/api/data", (req, res) => {
