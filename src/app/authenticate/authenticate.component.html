@@ -1,24 +1,21 @@
 <div class="center-auth">
   <form #authForm="ngForm" class="form">
-    <!-- Username -->
+    <!-- Email -->
     <div class="form-group mb-2">
-      <label for="userName">Username</label>
+      <label for="email">Email</label>
       <input
         type="text"
-        id="userName"
+        id="email"
         class="form-control"
         ngModel
-        name="userName"
+        name="email"
+        email
         required
-        minlength="5"
-        #userName="ngModel"
+        #email="ngModel"
       />
-      <span *ngIf="userName.touched && userName.invalid && userName.errors" class="error-txt">
-        <ng-container *ngIf="userName.errors['required']">
-          Username is required.
-        </ng-container>
-        <ng-container *ngIf="userName.errors['minlength']">
-          Username must be at least 5 characters long.
+      <span *ngIf="email.touched && email.invalid && email.errors" class="error-txt">
+        <ng-container *ngIf="email.errors['required']">
+          Email is required.
         </ng-container>
       </span>
     </div>
