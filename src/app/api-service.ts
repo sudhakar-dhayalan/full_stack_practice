@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IFile } from './upload-file/file.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,6 @@ export class ApiService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post(`${this.baseUrl}/upload`, formData);
+    return this.http.post(`${this.baseUrl}/uploads`, formData);
   }
 }

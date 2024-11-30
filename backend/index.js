@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Upload Route
-app.use('/upload', uploadsRoute);
+app.use('/uploads', uploadsRoute);
 
 // Serve uploaded files (Static)
 app.use("/files", express.static('files'));
