@@ -1,24 +1,26 @@
-<app-table *ngIf="fileList.length" [files]="fileList"></app-table>
-<form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" class="form">
-  <div class="upload-container">
-    <label for="fileInput">Upload a file:&nbsp; &nbsp;</label>
-    <input
-      type="file"
-      id="fileInput"
-      (change)="onFileSelected($event)"
-      [disabled]="fileUploadForm.get('file')?.disabled"
-    />
-    <div *ngIf="fileSizeError" class="error">
-      File size must not exceed 10 MB.
+<div class="file-upload-container">
+  <app-table *ngIf="fileList.length" [files]="fileList" class="table"></app-table>
+  <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="upload-container">
+      <label for="fileInput">Upload a file:&nbsp; &nbsp;</label>
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        [disabled]="fileUploadForm.get('file')?.disabled"
+      />
+      <div *ngIf="fileSizeError" class="error-txt">
+        File size must not exceed 10 MB.
+      </div>
     </div>
-  </div>
-  <button
-    type="submit"
-    class="btn btn-primary"
-    [disabled]="!fileUploadForm.valid || fileSizeError"
-  >
-    Upload
-  </button>
-</form>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="!fileUploadForm.valid || fileSizeError"
+    >
+      Upload
+    </button>
+  </form>
 
-<h4>{{ responseMessage }}</h4>
+  <h4 *ngIf="!clearNotification">{{ responseMessage }}</h4>
+</div>

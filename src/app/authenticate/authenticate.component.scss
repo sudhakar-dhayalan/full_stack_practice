@@ -1,4 +1,10 @@
-.center {
-  width: 70%;
-  margin: 0 10% 0 10%;
+.center-auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.form {
+  flex-grow: .5;
 }

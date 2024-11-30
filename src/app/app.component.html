@@ -1,17 +1,19 @@
-<div class="container-fluid">
+<div class="entire-page">
   <!-- Header Section -->
-  <app-header></app-header>
+  <div>
+    <app-header></app-header>
+  </div>
 
   <!-- Main Content Section -->
-  <main class="row">
-    <div class="col-12 col-md-8 py-4">
+  <main class="space-on-all-4-sides">
+    <div class="main-content">
       <router-outlet></router-outlet>
     </div>
   </main>
 
   <!-- Footer Section -->
-  <footer class="row bg-dark text-white py-3 mt-auto">
-    <div class="col text-center">
+  <footer class="bg-dark text-white py-3 mt-auto">
+    <div class="text-center">
       <p>&copy; 2024 My Responsive App</p>
     </div>
   </footer>
