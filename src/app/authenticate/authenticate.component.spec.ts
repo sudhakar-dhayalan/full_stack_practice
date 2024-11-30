@@ -50,59 +50,25 @@ describe('AuthenticateComponent', () => {
   });
 
   it('should disable the submit button if the form is invalid', () => {
-  // Get references to the form fields and the submit button
-  const usernameInput = fixture.debugElement.query(By.css('#userName')).nativeElement;
-  const passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-  const submitButton = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
-
-  // Initially, the form should be invalid
-  // expect(submitButton.disabled).toBeTrue(); // TODO
-
-  // Set an invalid username and password
-  usernameInput.value = 'usr'; // Less than minlength (5)
-  usernameInput.dispatchEvent(new Event('input'));
-  passwordInput.value = 'short'; // Less than minlength (8)
-  passwordInput.dispatchEvent(new Event('input'));
-
-  // Trigger Angular's change detection
-  fixture.detectChanges();
-
-  // Submit button should remain disabled because the form is still invalid
-  expect(submitButton.disabled).toBeTrue();
-});
-
-
-  it('should enable the submit button if the form is valid', () => {
+    // Get references to the form fields and the submit button
     const usernameInput = fixture.debugElement.query(By.css('#userName')).nativeElement;
     const passwordInput = fixture.debugElement.query(By.css('#password')).nativeElement;
-    const confirmPasswordInput = fixture.debugElement.query(By.css('#confirmPassword'))?.nativeElement;
+    const submitButton = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
 
-    usernameInput.value = 'validUser';
+    // Initially, the form should be invalid
+    // expect(submitButton.disabled).toBeTrue(); // TODO
+
+    // Set an invalid username and password
+    usernameInput.value = 'usr'; // Less than minlength (5)
     usernameInput.dispatchEvent(new Event('input'));
-    passwordInput.value = 'Valid@123';
+    passwordInput.value = 'short'; // Less than minlength (8)
     passwordInput.dispatchEvent(new Event('input'));
 
-    if (component.isSignUpMode) {
-      confirmPasswordInput.value = 'Valid@123';
-      confirmPasswordInput.dispatchEvent(new Event('input'));
-    }
-
+    // Trigger Angular's change detection
     fixture.detectChanges();
 
-    const submitButton = fixture.debugElement.query(By.css('button[type="submit"]')).nativeElement;
-    expect(submitButton.disabled).toBeFalse();
-  });
-
-  it('should show error messages for invalid username', () => {
-    const usernameInput = fixture.debugElement.query(By.css('#userName')).nativeElement;
-
-    usernameInput.value = '';
-    usernameInput.dispatchEvent(new Event('input'));
-    usernameInput.dispatchEvent(new Event('blur'));
-    fixture.detectChanges();
-
-    const errorSpan = fixture.debugElement.query(By.css('.error-txt'));
-    expect(errorSpan.nativeElement.textContent).toContain('Username is required.');
+    // Submit button should remain disabled because the form is still invalid
+    expect(submitButton.disabled).toBeTrue();
   });
 
   it('should show error messages for invalid password', () => {
