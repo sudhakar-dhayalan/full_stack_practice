@@ -1,0 +1,14 @@
+[
+  {
+    "id": "123",
+    "storedPath": "/files/12345-file.pdf",
+    "type": "pdf",
+    "size": "2MB"
+  },
+  {
+    "id": "456",
+    "storedPath": "/files/67890-file.txt",
+    "type": "txt",
+    "size": "1MB"
+  }
+]

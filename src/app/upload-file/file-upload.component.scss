@@ -3,6 +3,13 @@
   font-size: 0.9rem;
 }
 
-.upload-container {
-  margin-bottom: 1rem;
+.upload {
+
+  .form {
+    margin-top: 1rem;
+
+    .upload-container {
+      margin-bottom: 1rem;
+    }
+  }
 }

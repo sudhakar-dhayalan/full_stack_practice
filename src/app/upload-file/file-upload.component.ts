@@ -1,17 +1,20 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { ApiService } from '../api-service';
+import { TableComponent } from '../table/table.component';
+import { IFile } from './file.model';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, TableComponent],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
@@ -19,10 +22,23 @@ export class FileUploadComponent {
   fileUploadForm: FormGroup;
   fileSizeError = false;
   responseMessage = '';
+  fileList: IFile[] = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.fileUploadForm = this.fb.group({
       file: [null, Validators.required],
+    });
+
+    this.apiService.getUploadedFiles<IFile[]>().subscribe({
+      next: (res) => {
+        this.fileList = [...res]; // Ensure a new array is assigned
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err),
     });
   }
 
@@ -51,6 +67,13 @@ export class FileUploadComponent {
         this.apiService.uploadFile(file).subscribe({
           next: (res: any) => {
             this.responseMessage = res.message;
+            this.fileList.push({
+              id: res.id,
+              storedPath: res.filePath,
+              type: 'jpg',
+              size: file.size,
+              imageUrl: res.imageUrl,
+            });
           },
           error: (err) => {
             this.responseMessage = 'File upload failed!';

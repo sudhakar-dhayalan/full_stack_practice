@@ -21,4 +21,9 @@ export class ApiService {
 
     return this.http.post(`${this.baseUrl}/uploads`, formData);
   }
+
+  getUploadedFiles<T>(): Observable<T> {
+    return this.http.get<T>(`./assets/json/uploads.json`);
+    // return this.http.get<T>(`${this.baseUrl}/uploads`);
+  }
 }
