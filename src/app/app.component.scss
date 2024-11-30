@@ -1,17 +1,17 @@
-.container {
-  margin: 1rem;
-}
-
-/* General layout adjustments */
+// /* General layout adjustments */
 html,
 body {
   height: 100%;
 }
 
-.container-fluid {
+.entire-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+.space-on-all-4-sides {
+  padding: .6rem;
 }
 
 footer {

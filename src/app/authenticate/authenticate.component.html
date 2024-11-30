@@ -1,40 +1,89 @@
-<div class="row">
-  <div class="center">
-
-    <form #authForm="ngForm">
-      <div class="form-group mb-2">
-        <label for="email">Email</label>
-        <input
-          type="text"
-          id="userName"
-          class="form-control"
-          ngModel
-          name="userName"
-        />
-      </div>
-
-      <div class="form-group mb-2">
-        <label for="password">Enter Password</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          ngModel
-          name="password"
-        />
-      </div>
-
-      <div>
-        <button class="btn btn-primary" type="submit">
-          signUp
-            <!-- {{ isSignUpMode ? 'Sign Up' : 'Login' }} -->
-        </button> |
-        <button class="btn btn-primary" type="button">
-            <!-- Switch to {{ isSignUpMode ? 'Login' : 'Sign Up' }} -->
-             Login
-        </button>
+<div class="center-auth">
+  <form #authForm="ngForm" class="form">
+    <!-- Username -->
+    <div class="form-group mb-2">
+      <label for="userName">Username</label>
+      <input
+        type="text"
+        id="userName"
+        class="form-control"
+        ngModel
+        name="userName"
+        required
+        minlength="5"
+        #userName="ngModel"
+      />
+      <span *ngIf="userName.touched && userName.invalid && userName.errors" class="error-txt">
+        <ng-container *ngIf="userName.errors['required']">
+          Username is required.
+        </ng-container>
+        <ng-container *ngIf="userName.errors['minlength']">
+          Username must be at least 5 characters long.
+        </ng-container>
+      </span>
     </div>
-    </form>
 
-  </div>
+    <!-- Password -->
+    <div class="form-group mb-2">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        ngModel
+        name="password"
+        required
+        minlength="8"
+        [pattern]="passwordPattern"
+        #password="ngModel"
+      />
+      <span *ngIf="password.touched && password.invalid && password.errors" class="error-txt">
+        <ng-container *ngIf="password.errors['required']">
+          Password is required.
+        </ng-container>
+        <ng-container *ngIf="password.errors['minlength']">
+          Password must be at least 8 characters long.
+        </ng-container>
+        <ng-container *ngIf="password.errors['pattern']">
+          Password must contain at least 1 number, 1 special character, and 1 uppercase letter.
+        </ng-container>
+      </span>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="form-group mb-2" *ngIf="isSignUpMode">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        class="form-control"
+        ngModel
+        name="confirmPassword"
+        required
+        #confirmPassword="ngModel"
+      />
+      <span
+        *ngIf="confirmPassword.touched && (confirmPassword.invalid || password.value !== confirmPassword.value)"
+        class="error-txt"
+      >
+        <ng-container *ngIf="confirmPassword.errors && confirmPassword.errors['required']">
+          Confirm password is required.
+        </ng-container>
+        <ng-container *ngIf="password.value !== confirmPassword.value">
+          Passwords must match.
+        </ng-container>
+      </span>
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">
+        {{ isSignUpMode ? 'Sign Up' : 'Login' }}
+      </button>
+      |
+      <button class="btn btn-primary" type="button" (click)="onSwitch()">
+        Switch to {{ isSignUpMode ? 'Login' : 'Sign Up' }}
+      </button>
+    </div>
+  </form>
 </div>

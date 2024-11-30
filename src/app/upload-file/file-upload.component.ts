@@ -1,32 +1,50 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { ApiService } from '../api-service';
+import { TableComponent } from '../table/table.component';
+import { IFile } from './file.model';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, TableComponent],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent {
+  @ViewChild('fileInputElement') fileInputElement!: ElementRef;
   fileUploadForm: FormGroup;
   fileSizeError = false;
   responseMessage = '';
+  fileList: IFile[] = [];
+  clearNotification = true;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+  ) {
     this.fileUploadForm = this.fb.group({
       file: [null, Validators.required],
+    });
+
+    this.apiService.getUploadedFiles<IFile[]>().subscribe({
+      next: (res) => {
+        this.fileList = [...res]; // Ensure a new array is assigned
+      },
+      error: (err) => console.error(err),
     });
   }
 
   onFileSelected(event: Event): void {
+    this.clearNotification = true;
+
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       const file = input.files[0];
@@ -50,7 +68,21 @@ export class FileUploadComponent {
       if (file) {
         this.apiService.uploadFile(file).subscribe({
           next: (res: any) => {
+            // Clear input value
+          this.fileInputElement.nativeElement.value = '';
+
+          // Clear form control value
+          this.fileUploadForm.reset();
+
+            this.clearNotification = false;
             this.responseMessage = res.message;
+            this.fileList.push({
+              id: res.id,
+              storedPath: res.filePath,
+              type: 'jpg',
+              size: file.size,
+              imageUrl: res.imageUrl,
+            });
           },
           error: (err) => {
             this.responseMessage = 'File upload failed!';
