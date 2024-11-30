@@ -6,6 +6,7 @@
       <input
         type="file"
         id="fileInput"
+        #fileInputElement
         (change)="onFileSelected($event)"
         [disabled]="fileUploadForm.get('file')?.disabled"
       />

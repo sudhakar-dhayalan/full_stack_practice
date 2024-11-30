@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,15 +19,16 @@ import { IFile } from './file.model';
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent {
+  @ViewChild('fileInputElement') fileInputElement!: ElementRef;
   fileUploadForm: FormGroup;
   fileSizeError = false;
   responseMessage = '';
   fileList: IFile[] = [];
+  clearNotification = true;
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private cdr: ChangeDetectorRef
   ) {
     this.fileUploadForm = this.fb.group({
       file: [null, Validators.required],
@@ -36,13 +37,14 @@ export class FileUploadComponent {
     this.apiService.getUploadedFiles<IFile[]>().subscribe({
       next: (res) => {
         this.fileList = [...res]; // Ensure a new array is assigned
-        this.cdr.detectChanges();
       },
       error: (err) => console.error(err),
     });
   }
 
   onFileSelected(event: Event): void {
+    this.clearNotification = true;
+
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       const file = input.files[0];
@@ -66,6 +68,13 @@ export class FileUploadComponent {
       if (file) {
         this.apiService.uploadFile(file).subscribe({
           next: (res: any) => {
+            // Clear input value
+          this.fileInputElement.nativeElement.value = '';
+
+          // Clear form control value
+          this.fileUploadForm.reset();
+
+            this.clearNotification = false;
             this.responseMessage = res.message;
             this.fileList.push({
               id: res.id,
