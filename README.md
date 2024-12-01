@@ -46,7 +46,7 @@ Both were responsive and aligned to the center of the page
 
 ### Step 3: User Management
 
-Just a place holder component.
+Listed users and action buttons. Made use of the re-uable dynamic table component (used it in upload component as well) and the layout is responsive as well.
 
 ### Step 3: Authentication
 
