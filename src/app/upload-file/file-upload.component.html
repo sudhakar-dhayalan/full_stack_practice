@@ -1,5 +1,5 @@
 <div class="file-upload-container">
-  <app-table *ngIf="fileList.length" [files]="fileList" class="table"></app-table>
+  <app-dynamic-table [tableData]="fileList" [tableAction]="options" class="dynamic-table"></app-dynamic-table>
   <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" class="form">
     <div class="upload-container">
       <label for="fileInput">Upload a file:&nbsp; &nbsp;</label>
