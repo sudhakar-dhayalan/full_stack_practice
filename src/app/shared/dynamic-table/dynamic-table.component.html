@@ -1,0 +1,22 @@
+<table class="table table-bordered table-striped table-hover">
+  <thead class="table-primary">
+    <tr *ngIf="columns.length">
+      <ng-container *ngFor="let column of columns">
+        <th scope="col">{{column}}</th>
+       </ng-container>
+       <th scope="col" *ngIf="tableAction?.actionName">Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="tableData.length">
+    <tr *ngFor="let obj of tableData">
+      <ng-container *ngFor="let column of columns">
+        <td>{{ obj[column] }}</td>
+      </ng-container>
+      <td>
+        <button type="button" class="btn btn-danger btn-sm"  *ngIf="tableAction?.actionName" (click)="selectedItem(obj)">
+          {{ tableAction.actionName }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

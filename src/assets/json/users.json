@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "email": "test@gmail.com",
+    "role": "app",
+    "createdOn": "2024-12-01T03:37:17.120Z"
+  },
+  {
+    "id": 2,
+    "email": "abc@gmail.com",
+    "role": "admin",
+    "createdOn": "2024-01-010T10:54:03.120Z"
+  },
+  {
+    "id": 3,
+    "email": "xyz@gmail.com",
+    "role": "app",
+    "createdOn": "2024-07-01T00:22:02.120Z"
+  }
+]

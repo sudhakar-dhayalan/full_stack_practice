@@ -1,8 +1,3 @@
-// Wrapper to make the table responsive
-.table-wrapper {
-  overflow-x: auto; // Enable horizontal scrolling for smaller screens
-}
-
 // General table styling
 .table {
   width: 100%; // Full width
@@ -13,8 +8,6 @@
 
   // Header styling
   thead {
-    background-color: #007bff; // Primary color
-    color: white;
 
     th {
       padding: 12px;

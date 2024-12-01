@@ -7,12 +7,12 @@ import { IFile } from './upload-file/file.model';
   providedIn: 'root',
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:3000';
+  public readonly baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
-  getData(): Observable<{ message: string}> {
-    return this.http.get<{message: string}>(`${this.baseUrl}/api/data`);
+  get<T>(url: string): Observable<T> {
+    return this.http.get<T>(url);
   }
 
   uploadFile(file: File) {

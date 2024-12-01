@@ -8,18 +8,23 @@ import {
 } from '@angular/forms';
 
 import { ApiService } from '../api-service';
-import { TableComponent } from '../table/table.component';
 import { IFile } from './file.model';
+import { DynamicTableComponent } from '../shared/dynamic-table/dynamic-table.component';
+import { IDynamicTableAction } from '../shared/dynamic-table-action.model';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, TableComponent],
+  imports: [ReactiveFormsModule, NgIf, DynamicTableComponent],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent {
   @ViewChild('fileInputElement') fileInputElement!: ElementRef;
+  options: IDynamicTableAction = {
+    actionName: 'Delete',
+  };
+
   fileUploadForm: FormGroup;
   fileSizeError = false;
   responseMessage = '';
@@ -90,5 +95,9 @@ export class FileUploadComponent {
         });
       }
     }
+  }
+
+  deletItem(item: Event) {
+    console.log(item);
   }
 }
