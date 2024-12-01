@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { IDynamicTableAction } from '../dynamic-table-action.model';
 
@@ -14,13 +14,20 @@ export class DynamicTableComponent implements OnChanges {
   @Input() tableData: any[] = [];
   @Input() tableAction: IDynamicTableAction = {};
 
+  @Output() actionOnItem = new EventEmitter<any>();
+
   columns: string[] = []
 
   ngOnChanges() {
     this.columns = this.tableData.length ? Object.keys(this.tableData[0]): [];
   }
 
-  delete(user: any) {
-    console.log(user); // do something
+  selectedItem(obj: any) {
+    console.log(obj); // do something
+    this.actionOnItem.emit(obj);
+  }
+
+  selectedItems(arr: any) {
+    console.log(arr); // do something
   }
 }

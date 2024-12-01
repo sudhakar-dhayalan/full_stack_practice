@@ -96,4 +96,8 @@ export class FileUploadComponent {
       }
     }
   }
+
+  deletItem(item: Event) {
+    console.log(item);
+  }
 }

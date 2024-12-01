@@ -8,13 +8,13 @@
     </tr>
   </thead>
   <tbody *ngIf="tableData.length">
-    <tr *ngFor="let user of tableData">
+    <tr *ngFor="let obj of tableData">
       <ng-container *ngFor="let column of columns">
-        <td>{{ user[column] }}</td>
+        <td>{{ obj[column] }}</td>
       </ng-container>
       <td>
-        <button type="button" class="btn btn-danger btn-sm" (click)="delete(user)">
-          Delete
+        <button type="button" class="btn btn-danger btn-sm"  *ngIf="tableAction?.actionName" (click)="selectedItem(obj)">
+          {{ tableAction.actionName }}
         </button>
       </td>
     </tr>
