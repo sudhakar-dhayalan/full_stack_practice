@@ -1,11 +1,5 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 
 import { ApiService } from '../api-service';
 import { IFile } from './file.model';
@@ -18,7 +12,6 @@ import { UploadButtonComponent } from '../shared/upload-button/upload-button.com
   selector: 'app-file-upload',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
     NgIf,
     DynamicTableComponent,
     UploadButtonComponent,
@@ -31,8 +24,6 @@ export class FileUploadComponent {
   imageFileSize: number = 10 * 1024 * 1024;
   imageFileTypes = ['png'];
   fileList: IFile[] = [];
-  fileUploadForm: FormGroup;
-  fileSizeError = false;
   responseMessage = '';
   options: IDynamicTableAction = {
     actionName: 'Delete',
@@ -40,11 +31,7 @@ export class FileUploadComponent {
 
   clearPrevImage = false;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
-    this.fileUploadForm = this.fb.group({
-      file: [null, Validators.required],
-    });
-
+  constructor(private apiService: ApiService) {
     this.apiService.getUploadedFiles<IFile[]>().subscribe({
       next: (res) => {
         this.fileList = [...res]; // Ensure a new array is assigned
