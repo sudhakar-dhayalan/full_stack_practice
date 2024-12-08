@@ -11,6 +11,13 @@
     <div *ngIf="fileSizeError" class="error-txt">
       File size must not exceed {{ fileSizeInBytes }} MB.
     </div>
+    <div *ngIf="unsupportedFileType" class="error-txt">
+      Uploaded file type is not supported. Supported file types were
+      <ng-container *ngFor="let type of supportedFileTypes; let index = index">
+        <span>{{ type }}</span>
+        <span *ngIf="index < supportedFileTypes.length - 1">, </span>
+      </ng-container>
+    </div>
   </div>
   <button
     type="submit"

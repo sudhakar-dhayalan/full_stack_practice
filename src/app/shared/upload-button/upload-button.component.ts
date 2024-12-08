@@ -14,12 +14,12 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgIf, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-upload-button',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, NgForOf],
   templateUrl: './upload-button.component.html',
   styleUrl: './upload-button.component.scss',
 })
@@ -34,6 +34,7 @@ export class UploadButtonComponent implements OnChanges {
 
   fileUploadForm: FormGroup;
   fileSizeError = false;
+  unsupportedFileType = false;
 
   constructor(private fb: FormBuilder) {
     this.fileUploadForm = this.fb.group({
@@ -54,6 +55,11 @@ export class UploadButtonComponent implements OnChanges {
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       const file = input.files[0];
+      const fileType= file.type.split('/')[1];
+      if (!this.supportedFileTypes.includes(fileType)) {
+        this.unsupportedFileType = true;
+        this.fileUploadForm.patchValue({ file: null });
+      }
       // Check file size (10 MB = 10 * 1024 * 1024 bytes)
       if (file.size > this.fileSizeInBytes) {
         this.fileSizeError = true;

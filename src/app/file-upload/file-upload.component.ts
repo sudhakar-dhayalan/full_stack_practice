@@ -22,7 +22,7 @@ import { UploadButtonComponent } from '../shared/upload-button/upload-button.com
 })
 export class FileUploadComponent {
   imageFileSize: number = 10 * 1024 * 1024;
-  imageFileTypes = ['png'];
+  imageFileTypes = ['png', 'jpeg'];
   fileList: IFile[] = [];
   responseMessage = '';
   options: IDynamicTableAction = {
