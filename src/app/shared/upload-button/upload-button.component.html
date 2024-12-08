@@ -1,0 +1,22 @@
+<form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" class="form">
+  <div class="upload-container">
+    <label for="fileInput">Upload a file:&nbsp; &nbsp;</label>
+    <input
+      type="file"
+      id="fileInput"
+      #fileInputElement
+      (change)="onFileSelected($event)"
+      [disabled]="fileUploadForm.get('file')?.disabled"
+    />
+    <div *ngIf="fileSizeError" class="error-txt">
+      File size must not exceed {{ fileSizeInBytes }} MB.
+    </div>
+  </div>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="!fileUploadForm.valid || fileSizeError"
+  >
+    Upload
+  </button>
+</form>

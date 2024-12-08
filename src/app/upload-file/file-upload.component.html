@@ -1,28 +1,16 @@
-<app-video-player></app-video-player>
+<!-- <app-video-player></app-video-player> -->
 <div class="file-upload-container">
-  <app-dynamic-table [tableData]="fileList" [tableAction]="options" (actionOnItem)="deletItem($event)" class="dynamic-table"></app-dynamic-table>
-  <form [formGroup]="fileUploadForm" (ngSubmit)="onSubmit()" class="form">
-    <div class="upload-container">
-      <label for="fileInput">Upload a file:&nbsp; &nbsp;</label>
-      <input
-        type="file"
-        id="fileInput"
-        #fileInputElement
-        (change)="onFileSelected($event)"
-        [disabled]="fileUploadForm.get('file')?.disabled"
-      />
-      <div *ngIf="fileSizeError" class="error-txt">
-        File size must not exceed 10 MB.
-      </div>
-    </div>
-    <button
-      type="submit"
-      class="btn btn-primary"
-      [disabled]="!fileUploadForm.valid || fileSizeError"
-    >
-      Upload
-    </button>
-  </form>
+  <app-dynamic-table
+    [tableData]="fileList"
+    [tableAction]="options"
+    (actionOnItem)="deleteItem($event)"
+    class="dynamic-table"
+  ></app-dynamic-table>
 
-  <h4 *ngIf="!clearNotification">{{ responseMessage }}</h4>
+  <app-upload-button
+    [fileSizeInBytes]="imageFileSize"
+    [supportedFileTypes]="imageFileTypes"
+    [clearPreviousFileSelection]="clearPrevImage"
+    (upload)="fileUpload($event)"
+  ></app-upload-button>
 </div>
