@@ -11,11 +11,12 @@ import { ApiService } from '../api-service';
 import { IFile } from './file.model';
 import { DynamicTableComponent } from '../shared/dynamic-table/dynamic-table.component';
 import { IDynamicTableAction } from '../shared/dynamic-table-action.model';
+import { VideoPlayerComponent } from '../video-player/video-player.component';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, DynamicTableComponent],
+  imports: [ReactiveFormsModule, NgIf, DynamicTableComponent, VideoPlayerComponent],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
 })
