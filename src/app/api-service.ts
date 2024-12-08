@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IFile } from './upload-file/file.model';
+import { IFile } from './file-upload/file.model';
 
 @Injectable({
   providedIn: 'root',

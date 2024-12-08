@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ApiService } from './api-service';
 import { HttpClientModule } from '@angular/common/http';
-import { FileUploadComponent } from './upload-file/file-upload.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 import { HeaderComponent } from './header/header.component';
 
 @Component({
