@@ -9,7 +9,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'upload',
+    path: 'uploads',
     component: FileUploadComponent,
   },
   {
@@ -22,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'upload',
+    redirectTo: 'uploads',
     pathMatch: 'full',
   },
 ];

@@ -1,16 +1,46 @@
-<!-- <app-video-player></app-video-player> -->
-<div class="file-upload-container">
-  <app-dynamic-table
-    [tableData]="fileList"
-    [tableAction]="options"
-    (actionOnItem)="deleteItem($event)"
-    class="dynamic-table"
-  ></app-dynamic-table>
+<mat-tab-group
+  dynamic-height
+  fitInkBarToContent
+  mat-stretch-tabs="false"
+  mat-align-tabs="center"
+>
+  <mat-tab label="Images">
+    <div class="file-upload-container">
+      <app-dynamic-table
+        [tableData]="imageFileList"
+        [tableAction]="imageTableOption"
+        (actionOnItem)="deleteItem($event)"
+        class="dynamic-table"
+      ></app-dynamic-table>
 
-  <app-upload-button
-    [fileSizeInBytes]="imageFileSize"
-    [supportedFileTypes]="imageFileTypes"
-    [clearPreviousFileSelection]="clearPrevImage"
-    (upload)="fileUpload($event)"
-  ></app-upload-button>
-</div>
+      <app-upload-button
+        [fileSizeInBytes]="imageFileSize"
+        [supportedFileTypes]="imageFileTypes"
+        [clearPreviousFileSelection]="clearPrevSelection"
+        (upload)="fileUpload($event)"
+      ></app-upload-button>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Videos">
+    <div class="file-upload-container">
+      <app-dynamic-table
+        [tableData]="videoFileList"
+        [tableAction]="videoTableOption"
+        (actionOnItem)="deleteItem($event)"
+        class="dynamic-table"
+      ></app-dynamic-table>
+
+      <app-upload-button
+        [fileSizeInBytes]="videoFileSize"
+        [supportedFileTypes]="videoFileTypes"
+        [clearPreviousFileSelection]="clearPrevSelection"
+        (upload)="fileUpload($event)"
+      ></app-upload-button>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Documents">
+    <p>Testing content</p>
+  </mat-tab>
+</mat-tab-group>

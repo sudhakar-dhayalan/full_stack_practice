@@ -1,18 +1,21 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { ApiService } from '../api-service';
 import { IFile } from './file.model';
 import { DynamicTableComponent } from '../shared/dynamic-table/dynamic-table.component';
 import { IDynamicTableAction } from '../shared/dynamic-table-action.model';
-import { VideoPlayerComponent } from '../video-player/video-player.component';
+import { VideoPlayerComponent } from '../shared/video-player/video-player.component';
 import { UploadButtonComponent } from '../shared/upload-button/upload-button.component';
 
 @Component({
   selector: 'app-file-upload',
   standalone: true,
   imports: [
+    MatTabsModule,
     NgIf,
+
     DynamicTableComponent,
     UploadButtonComponent,
     VideoPlayerComponent,
@@ -21,20 +24,44 @@ import { UploadButtonComponent } from '../shared/upload-button/upload-button.com
   styleUrls: ['./file-upload.component.scss'],
 })
 export class FileUploadComponent {
-  imageFileSize: number = 10 * 1024 * 1024;
+  imageFileSize: number = 10 * 1024 * 1024; // 10 mb
   imageFileTypes = ['png', 'jpeg'];
-  fileList: IFile[] = [];
-  responseMessage = '';
-  options: IDynamicTableAction = {
+  imageFileList: IFile[] = [];
+  imageTableOption: IDynamicTableAction = {
     actionName: 'Delete',
   };
 
-  clearPrevImage = false;
+  videoFileSize: number = 100 * 1024 * 1024; // 100 mb
+  videoFileTypes = ['mp4'];
+  videoFileList: IFile[] = [];
+  videoTableOption: IDynamicTableAction = {
+    actionName: 'Delete',
+    options: {
+      enableVideo: true,
+    }
+  };
+
+  responseMessage = '';
+
+  clearPrevSelection = false;
 
   constructor(private apiService: ApiService) {
-    this.apiService.getUploadedFiles<IFile[]>().subscribe({
+    this.getFiles();
+  }
+
+  getFiles() {
+    // Image
+    this.apiService.getUploadedFiles<IFile[]>('./assets/json/files/images.json').subscribe({
       next: (res) => {
-        this.fileList = [...res]; // Ensure a new array is assigned
+        this.imageFileList = [...res]; // Ensure a new array is assigned
+      },
+      error: (err) => console.error(err),
+    });
+
+    // Videos
+    this.apiService.getUploadedFiles<IFile[]>('./assets/json/files/videos.json').subscribe({
+      next: (res) => {
+        this.videoFileList = [...res]; // Ensure a new array is assigned
       },
       error: (err) => console.error(err),
     });
@@ -48,15 +75,14 @@ export class FileUploadComponent {
       this.apiService.uploadFile(file).subscribe({
         next: (res: any) => {
           // Clear input value
-          this.clearPrevImage = true;
+          this.clearPrevSelection = true;
 
           this.responseMessage = res.message;
-          this.fileList.push({
+          this.imageFileList.push({
             id: res.id,
             storedPath: res.filePath,
             type: 'jpg',
             size: file.size.toString(),
-            imageUrl: res.imageUrl,
           });
         },
         error: (err) => {

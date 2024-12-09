@@ -2,11 +2,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 import { IDynamicTableAction } from '../dynamic-table-action.model';
+import { VideoPlayerComponent } from '../video-player/video-player.component';
 
 @Component({
   selector: 'app-dynamic-table',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, VideoPlayerComponent],
   templateUrl: './dynamic-table.component.html',
   styleUrls: ['./dynamic-table.component.scss']
 })

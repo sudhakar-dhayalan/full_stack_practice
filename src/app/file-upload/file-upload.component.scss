@@ -1,4 +1,9 @@
+::ng-deep.mat-mdc-tab.mdc-tab {
+  background-color: #b3caf7;
+}
+
 .file-upload-container {
+  padding-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,12 +19,6 @@
   @media (min-width: 751px) {
     .dynamic-table {
       width: 70%;
-    }
-  }
-
-  .form {
-    .upload-container {
-      margin-bottom: .7rem;
     }
   }
 }

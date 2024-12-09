@@ -1,6 +1,9 @@
 <table class="table table-bordered table-striped table-hover">
   <thead class="table-primary">
     <tr *ngIf="columns.length">
+      <th *ngIf="tableAction?.options?.enableVideo">
+        Video Preview
+      </th>
       <ng-container *ngFor="let column of columns">
         <th scope="col">{{column}}</th>
        </ng-container>
@@ -9,6 +12,9 @@
   </thead>
   <tbody *ngIf="tableData.length">
     <tr *ngFor="let obj of tableData">
+      <td *ngIf="tableAction?.options?.enableVideo">
+        <app-video-player></app-video-player>
+      </td>
       <ng-container *ngFor="let column of columns">
         <td>{{ obj[column] }}</td>
       </ng-container>
