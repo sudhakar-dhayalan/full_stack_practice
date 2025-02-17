@@ -21,6 +21,19 @@ export const routes: Routes = [
     loadComponent: () => import('./authenticate/authenticate.component').then(m => m.AuthenticateComponent),
   },
   {
+    path: 'goals',
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./goals/goals.component').then(m => m.GoalsComponent),
+      },
+      {
+        path: 'goal-form',
+        loadComponent: () => import('./goals/goal-form/goal-form.component').then(m => m.GoalFormComponent),
+      },
+    ]
+  },
+  {
     path: '**',
     redirectTo: 'upload',
     pathMatch: 'full',
